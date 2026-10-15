@@ -23,8 +23,13 @@
   function fmtTime(s) {
     if (!isFinite(s) || s <= 0) return "";
     s = Math.round(s);
-    const m = Math.floor(s / 60);
-    return m + ":" + String(s % 60).padStart(2, "0");
+    const h = Math.floor(s / 3600);
+    const m = Math.floor((s % 3600) / 60);
+    const sec = s % 60;
+    const pad = (n) => String(n).padStart(2, "0");
+    return h > 0
+      ? pad(h) + ":" + pad(m) + ":" + pad(sec)
+      : m + ":" + pad(sec);
   }
 
   function grabThumb(v) {
