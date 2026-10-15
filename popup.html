@@ -1,0 +1,158 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <style>
+      :root { color-scheme: light dark; }
+      body {
+        width: 380px;
+        margin: 0;
+        font: 13px/1.4 system-ui, sans-serif;
+        background: Canvas;
+        color: CanvasText;
+      }
+      header {
+        padding: 10px 12px;
+        font-weight: 600;
+        border-bottom: 1px solid color-mix(in srgb, CanvasText 15%, transparent);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      header small { font-weight: 400; opacity: 0.6; }
+      .toolbar {
+        padding: 8px 12px;
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        border-bottom: 1px solid color-mix(in srgb, CanvasText 10%, transparent);
+      }
+      .toolbar .hint { font-size: 11px; opacity: 0.6; }
+      .section-label {
+        padding: 8px 12px 2px;
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        opacity: 0.55;
+      }
+      #videos {
+        display: flex;
+        gap: 8px;
+        overflow-x: auto;
+        padding: 6px 12px 10px;
+      }
+      .vcard {
+        flex: 0 0 auto;
+        width: 104px;
+        cursor: pointer;
+        border-radius: 6px;
+        overflow: hidden;
+        border: 1px solid color-mix(in srgb, CanvasText 15%, transparent);
+      }
+      .vcard:hover { outline: 2px solid #2563eb; }
+      .vcard .thumb {
+        width: 104px;
+        height: 58px;
+        object-fit: cover;
+        display: block;
+        background: #111;
+      }
+      .vcard .ph {
+        width: 104px;
+        height: 58px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: color-mix(in srgb, CanvasText 10%, transparent);
+        font-size: 11px;
+        opacity: 0.7;
+      }
+      .vcard .cap { padding: 3px 5px; font-size: 10px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+      #list { max-height: 300px; overflow: auto; }
+      .item {
+        padding: 10px 12px;
+        border-top: 1px solid color-mix(in srgb, CanvasText 10%, transparent);
+        display: flex;
+        gap: 10px;
+        align-items: center;
+      }
+      .meta { flex: 1; min-width: 0; }
+      .kind {
+        display: inline-block;
+        font-size: 10px;
+        font-weight: 700;
+        text-transform: uppercase;
+        padding: 1px 6px;
+        border-radius: 999px;
+        background: #2563eb;
+        color: #fff;
+      }
+      .kind.dash { background: #9333ea; }
+      .kind.direct { background: #059669; }
+      .match {
+        display: inline-block;
+        margin-left: 6px;
+        font-size: 10px;
+        padding: 1px 6px;
+        border-radius: 999px;
+        background: #f59e0b;
+        color: #1a1a1a;
+        cursor: pointer;
+      }
+      .url {
+        display: block;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        opacity: 0.75;
+        font-family: ui-monospace, monospace;
+        font-size: 11px;
+        margin-top: 3px;
+      }
+      button {
+        font: inherit;
+        padding: 6px 12px;
+        border: 0;
+        border-radius: 6px;
+        background: #2563eb;
+        color: #fff;
+        cursor: pointer;
+      }
+      button.ghost {
+        background: transparent;
+        color: CanvasText;
+        border: 1px solid color-mix(in srgb, CanvasText 30%, transparent);
+      }
+      button[aria-pressed="true"] { background: #f59e0b; color: #1a1a1a; }
+      button:disabled { opacity: 0.5; cursor: default; }
+      #empty { padding: 20px 12px; text-align: center; opacity: 0.6; }
+      #status {
+        padding: 8px 12px;
+        font-size: 12px;
+        border-top: 1px solid color-mix(in srgb, CanvasText 15%, transparent);
+        min-height: 16px;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <span>Local Video Grabber</span>
+      <small id="count"></small>
+    </header>
+
+    <div class="toolbar">
+      <button id="hlBtn" class="ghost" aria-pressed="false">&#128065; Highlight videos on page</button>
+      <span class="hint" id="hlHint"></span>
+    </div>
+
+    <div class="section-label" id="videosLabel" style="display:none">Videos on this page &middot; click to locate</div>
+    <div id="videos"></div>
+
+    <div class="section-label" id="streamsLabel" style="display:none">Detected streams</div>
+    <div id="list"></div>
+    <div id="empty">No media detected on this tab yet.<br />Start the video, then reopen this popup.</div>
+
+    <div id="status"></div>
+    <script src="popup.js"></script>
+  </body>
+</html>
